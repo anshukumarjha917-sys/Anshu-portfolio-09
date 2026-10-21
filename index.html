@@ -92,7 +92,7 @@ h1,h2,h3,h4{font-family:var(--font-display); font-weight:600; letter-spacing:-0.
 .section-title{font-size:clamp(1.8rem,3.4vw,2.6rem); margin-bottom:10px;}
 .section-sub{color:var(--text-2); font-size:1.02rem; max-width:520px; margin-bottom:52px;}
 
-section{padding:120px 0; position:relative;}
+section{padding:120px 0; position:relative; z-index:1;}
 @media (max-width:800px){section{padding:84px 0;}}
 
 /* ============ SCROLL REVEAL ============ */
@@ -171,7 +171,7 @@ html[data-theme="light"] .theme-toggle::after{transform:translateX(20px);}
   min-height:100vh; display:flex; align-items:center; padding-top:var(--nav-h);
   position:relative;
 }
-#hero-canvas{position:absolute; inset:0; z-index:0; opacity:0.55;}
+#network-canvas{position:fixed; inset:0; width:100%; height:100%; z-index:0; opacity:0.55; pointer-events:none;}
 .hero-grid{
   position:relative; z-index:2; width:100%;
   display:flex; justify-content:center; text-align:center;
@@ -430,7 +430,7 @@ html[data-theme="light"] .theme-toggle::after{transform:translateX(20px);}
 .form-msg.show{display:block;}
 
 /* ============ FOOTER ============ */
-footer{padding:36px 0; border-top:1px solid var(--border); text-align:center;}
+footer{position:relative; z-index:1; padding:36px 0; border-top:1px solid var(--border); text-align:center;}
 footer p{font-family:var(--font-mono); font-size:0.8rem; color:var(--text-2);}
 footer .heart{color:var(--blue-1);}
 .footer-meta{
@@ -452,6 +452,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 <body>
 
 <!-- ================= NAV ================= -->
+<canvas id="network-canvas" aria-hidden="true"></canvas>
+
 <nav id="nav">
   <div class="wrap nav-inner">
     <a href="#home" class="logo"><span class="prompt">~/</span>anshu<span class="cursor"></span></a>
@@ -474,7 +476,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 <!-- ================= HERO ================= -->
 <section id="home">
-  <canvas id="hero-canvas"></canvas>
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <!-- Internship status removed -->
@@ -518,7 +519,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         </div>
         <div class="timeline-item">
           <div class="t-year">Ongoing</div>
-          <div class="t-title">Learning AWS</div>
+          <div class="t-title">Learning Cloud and DevOps</div>
           <div class="t-sub">Self-paced, alongside coursework</div>
         </div>
       </div>
@@ -533,7 +534,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <ul class="check-list">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>B.Tech student specializing in Cloud Technology &amp; Information Security</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Passionate about cloud computing and how modern infrastructure works</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Currently learning Linux, AWS, Networking, and DevOps</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Currently learning Cloud and DevOps, alongside Linux and Networking</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Looking for internship opportunities to learn and grow</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Love building practical, hands-on projects</li>
         </ul>
@@ -967,13 +968,13 @@ function typeLoop(){
 }
 typeLoop();
 
-/* ============ HERO NETWORK CANVAS ============ */
-const canvas = document.getElementById('hero-canvas');
+/* ============ PAGE NETWORK CANVAS ============ */
+const canvas = document.getElementById('network-canvas');
 const ctx = canvas.getContext('2d');
 let nodes = [];
 function resizeCanvas(){
-  canvas.width = canvas.parentElement.offsetWidth;
-  canvas.height = canvas.parentElement.offsetHeight;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
   const count = Math.min(60, Math.floor((canvas.width*canvas.height)/28000));
   nodes = Array.from({length:count}, () => ({
     x: Math.random()*canvas.width,
