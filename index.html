@@ -301,6 +301,9 @@ html[data-theme="light"] .theme-toggle::after{transform:translateX(20px);}
 
 /* ============ PROJECTS ============ */
 .project-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:24px; margin-top:8px;}
+.project-highlights{display:grid; gap:8px; margin:16px 0; color:var(--text-1); font-size:0.88rem;}
+.project-highlights li{position:relative; padding-left:16px;}
+.project-highlights li::before{content:""; position:absolute; left:0; top:.65em; width:5px; height:5px; border-radius:50%; background:var(--blue-0);}
 .project-card-empty{
   border:1.5px dashed var(--border-strong); border-radius:var(--radius-lg); padding:44px 24px;
   display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:14px;
@@ -655,28 +658,41 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
             COMPLETED
         </div>
 
-        <h3>Portfolio Website Deployment on AWS S3</h3>
+        <h3>Portfolio Deployment on AWS EC2 with CloudFront</h3>
 
         <p>
-            Deployed my personal portfolio website using Amazon S3
-            static website hosting. The website is accessible online
-            through an AWS S3 website endpoint.
+          Deployed my portfolio on an Amazon EC2 instance and configured Amazon CloudFront as the content delivery layer with HTTPS access.
         </p>
 
+        <ul class="project-highlights">
+          <li>Hosted the portfolio website on EC2 with Nginx.</li>
+          <li>Configured CloudFront with the EC2 instance as its origin.</li>
+          <li>Set up HTTP-to-HTTPS redirection at CloudFront.</li>
+          <li>Practiced cloud hosting, origin configuration, and deployment troubleshooting.</li>
+        </ul>
+
         <div class="project-tech">
-            <span>Amazon S3</span>
-            <span>AWS Cloud</span>
-            <span>HTML</span>
-            <span>CSS</span>
-            <span>JavaScript</span>
+          <span>AWS EC2</span>
+          <span>Amazon CloudFront</span>
+          <span>Linux</span>
+          <span>Nginx</span>
+          <span>Git</span>
+          <span>GitHub</span>
+          <span>HTTPS</span>
         </div>
 
         <div class="project-buttons">
-            <a href="http://anshu-portfolio-09.s3-website-ap-southeast-2.amazonaws.com"
+          <a href="https://dcuhfv8qqtmou.cloudfront.net/"
                target="_blank"
                rel="noopener noreferrer"
                class="btn btn-primary">
-                Live Demo
+            Live on CloudFront
+          </a>
+          <a href="http://3.107.96.247/"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="btn btn-ghost">
+            EC2 Origin
             </a>
         </div>
 
