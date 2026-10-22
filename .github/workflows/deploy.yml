@@ -23,10 +23,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      
       - name: Package portfolio
         run: |
+          mkdir -p /tmp/portfolio-package
           tar --exclude=.git --exclude=.github \
-            -czf portfolio.tar.gz .
+            -czf /tmp/portfolio-package/portfolio.tar.gz .
+          mv /tmp/portfolio-package/portfolio.tar.gz portfolio.tar.gz
 
       - name: Configure SSH
         env:
